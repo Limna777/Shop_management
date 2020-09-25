@@ -12,7 +12,10 @@
       <!-- 添加角色按钮区域 -->
       <el-row>
         <el-col>
-          <el-button type="primary">添加角色</el-button>
+          <el-button
+            type="primary"
+            @click="showAddRoles"
+          >添加角色</el-button>
         </el-col>
       </el-row>
 
@@ -96,6 +99,7 @@
               size="mini"
               type="danger"
               icon="el-icon-delete"
+              @click="deleteRight(scope.row.id)"
             >删除</el-button>
             <el-button
               size="mini"
@@ -136,6 +140,36 @@
         >确 定</el-button>
       </span>
     </el-dialog>
+    <!-- 添加角色的对话框 -->
+    <el-dialog
+      title="添加角色"
+      :visible.sync="addRolesdialogVisible"
+      width="50%"
+    >
+      <el-form
+        ref="addRolesRef"
+        :model="addRole"
+        label-width="80px"
+      >
+        <el-form-item prop="roleName" label="角色名称">
+          <el-input v-model="addRole.roleName"></el-input>
+        </el-form-item>
+        <el-form-item  prop="roleDesc" label="角色描述">
+          <el-input v-model="addRole.roleDesc"></el-input>
+        </el-form-item>
+      </el-form>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button @click="addRolesdialogVisible = false">取 消</el-button>
+        <el-button
+          type="primary"
+          @click="addRoleClick"
+        >确 定</el-button>
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -157,7 +191,13 @@ export default {
       // 默认选中的节点Id值数组
       defKeys: [],
       // 当前即将分配权限的角色id
-      roleId: ''
+      roleId: '',
+      //添加角色对话框的显示与隐藏
+      addRolesdialogVisible: false,
+      addRole:{
+        roleName:'',
+        roleDesc:''
+      }
     }
   },
   created() {
@@ -257,6 +297,37 @@ export default {
       this.$message.success('分配权限成功！')
       this.getRolesList()
       this.setRightDialogVisible = false
+    },
+    //删除角色
+    async deleteRight(id) {
+      const confirmResult = await this.$confirm('此操作将永久删除该文件, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).catch(err => err)
+      if (confirmResult != 'confirm') {
+        return this.$message.error('已取消删除')
+      }
+      const { data: res } = await this.$http.delete('roles/' + id)
+      if (res.meta.status !== 200) {
+        return this.$message.error('删除角色失败')
+      }
+      this.$message.success('删除角成功')
+      this.getRolesList()
+    },
+    //添加角色
+    showAddRoles() {
+      this.addRolesdialogVisible = true
+    },
+    async addRoleClick(){
+       const {data:res} = await this.$http.post('roles',this.addRole)
+       console.log(res);
+       if(res.meta.status !== 201){
+           this.$message.error('添加用户失败')
+        }
+        this.$message.success('添加用户成功')
+        this.addRolesdialogVisible = false;
+        this.getRolesList()
     }
   }
 }
