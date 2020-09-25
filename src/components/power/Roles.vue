@@ -151,10 +151,16 @@
         :model="addRole"
         label-width="80px"
       >
-        <el-form-item prop="roleName" label="角色名称">
+        <el-form-item
+          prop="roleName"
+          label="角色名称"
+        >
           <el-input v-model="addRole.roleName"></el-input>
         </el-form-item>
-        <el-form-item  prop="roleDesc" label="角色描述">
+        <el-form-item
+          prop="roleDesc"
+          label="角色描述"
+        >
           <el-input v-model="addRole.roleDesc"></el-input>
         </el-form-item>
       </el-form>
@@ -194,9 +200,9 @@ export default {
       roleId: '',
       //添加角色对话框的显示与隐藏
       addRolesdialogVisible: false,
-      addRole:{
-        roleName:'',
-        roleDesc:''
+      addRole: {
+        roleName: '',
+        roleDesc: ''
       }
     }
   },
@@ -319,15 +325,15 @@ export default {
     showAddRoles() {
       this.addRolesdialogVisible = true
     },
-    async addRoleClick(){
-       const {data:res} = await this.$http.post('roles',this.addRole)
-       console.log(res);
-       if(res.meta.status !== 201){
-           this.$message.error('添加用户失败')
-        }
-        this.$message.success('添加用户成功')
-        this.addRolesdialogVisible = false;
-        this.getRolesList()
+    async addRoleClick() {
+      const { data: res } = await this.$http.post('roles', this.addRole)
+      console.log(res);
+      if (res.meta.status !== 201) {
+        this.$message.error('添加用户失败')
+      }
+      this.$message.success('添加用户成功')
+      this.addRolesdialogVisible = false;
+      this.getRolesList()
     }
   }
 }
