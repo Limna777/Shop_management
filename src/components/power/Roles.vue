@@ -145,6 +145,7 @@
       title="添加角色"
       :visible.sync="addRolesdialogVisible"
       width="50%"
+      @close="addRolesDialogClosed"
     >
       <el-form
         ref="addRolesRef"
@@ -334,6 +335,10 @@ export default {
       this.$message.success('添加用户成功')
       this.addRolesdialogVisible = false;
       this.getRolesList()
+    },
+    //添加角色对话框的关闭事件
+    addRolesDialogClosed() {
+      this.$refs.addRolesRef.resetFields();
     }
   }
 }
