@@ -1,4 +1,4 @@
-@import "./normalize.css";
+@import './normalize.css';
 
 /*:root -> 获取根元素html*/
 :root {
@@ -19,7 +19,8 @@
 }
 
 body {
-  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  font-family: 'Helvetica Neue', Helvetica, 'PingFang SC', 'Hiragino Sans GB',
+    'Microsoft YaHei', '微软雅黑', Arial, sans-serif;
   user-select: none; /* 禁止用户鼠标在页面上选中文字/图片等 */
   -webkit-tap-highlight-color: transparent; /* webkit是苹果浏览器引擎，tap点击，highlight背景高亮，color颜色，颜色用数值调节 */
   background: var(--color-background);
@@ -32,7 +33,6 @@ a {
   color: var(--color-text);
   text-decoration: none;
 }
-
 
 .clear-fix::after {
   clear: both;
@@ -55,17 +55,21 @@ a {
   float: right;
 }
 
-.el-breadcrumb{
+.el-breadcrumb {
   margin-bottom: 15px;
   font-size: 12px;
 }
-.el-card{
-  box-shadow: 0 1px 3px rgba(0,0,0,0.1) !important;
+.el-card {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
 }
 .el-table {
   margin-top: 15px;
   font-size: 12px;
 }
-.el-pagination{
+.el-pagination {
   margin-top: 20px;
 }
+.ql-editor {
+  min-height: 250px;
+}
+
